@@ -51,7 +51,7 @@ def setup_logger():
     test_report_handler.setLevel(file_log_level)
     test_report_logger.addHandler(test_report_handler)
 
-    validation_handler = logging.FileHandler('validation_{}.log'.format(date_tag))
+    validation_handler = logging.FileHandler(os.path.join(log_dir, 'validation_{}.log'.format(date_tag)))
     validation_handler.setFormatter(report_formatter)
     validation_logger.setLevel(file_log_level)
     validation_logger.addHandler(validation_handler)
