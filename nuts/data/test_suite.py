@@ -19,11 +19,11 @@ class TestSuite(object):
         self.test_report_logger = logging.getLogger('nuts-test-report')
 
     def create_test(self, **kwargs):
-        async = kwargs.pop('async', None)
+        async_ = kwargs.pop('async_', None)
         test = TestCase(**kwargs)
-        if async:
+        if async_:
             self.test_cases_async.append(test)
-        elif async is False:
+        elif async_ is False:
             self.test_cases_sync.append(test)
         elif len(kwargs.get('setup', [])) or len(kwargs.get('teardown', [])):
             self.test_cases_sync.append(test)

@@ -59,14 +59,14 @@ def test_get_test_by_name_last(test_suite):
 def test_add_explicit_async_test(test_suite):
     length = len(test_suite.test_cases_async)
     test_suite.create_test(name='test', command='testcmd', devices='sw01', parameter='', operator='=', expected=True,
-                           async=True)
+                           async_=True)
     assert length + 1 == len(test_suite.test_cases_async)
 
 
 def test_add_explicit_sync_test(test_suite):
     length = len(test_suite.test_cases_sync)
     test_suite.create_test(name='test', command='testcmd', devices='sw01', parameter='', operator='=', expected=True,
-                           async=False)
+                           async_=False)
     assert length + 1 == len(test_suite.test_cases_sync)
 
 

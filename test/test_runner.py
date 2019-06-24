@@ -121,7 +121,7 @@ def test_run_setup_teardown_sync(api_mock):
 def test_run_setup_teardown_async(api_mock):
     test_suite = TSuite('TestTestSuite')
     test_suite.create_test(name='test', command='testcmd', devices='sw01', parameter='', operator='=', expected=True,
-                           setup=[{'command': 'test setup cmd'}], teardown=[{'command': 'test setup cmd'}], async=True)
+                           setup=[{'command': 'test setup cmd'}], teardown=[{'command': 'test setup cmd'}], async_=True)
     with patch.object(Runner, '_start_tasks') as start_task_method_mocked:
         Runner(test_suite, api_mock).run_all()
         start_task_method_mocked.assert_any_call(test_suite.test_cases_async[0].setup_tasks)
