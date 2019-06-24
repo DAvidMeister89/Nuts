@@ -26,12 +26,14 @@ setup(
         'colorama',
         'jinja2'
     ],
-    tests_require=[
-        'pytest',
-        'pytest-pep8',
-        'mock',
-        'Sphinx'
-    ],
+    extras_require={
+        'test':  [
+            'pytest',
+            'pytest-pep8',
+            'mock',
+            'Sphinx'
+        ],
+    },
     entry_points={
         'console_scripts': [
             'nuts = nuts.main:main',
