@@ -21,15 +21,8 @@ Dependencies
 
 from __future__ import absolute_import
 
-import salt.client
 import re
 import json
-import salt.config
-from salt.client.ssh.client import SSHClient
-
-client = SSHClient()
-local = salt.client.LocalClient()
-master = salt.client.Caller()
 
 __virtualname__ = 'nuts'
 
