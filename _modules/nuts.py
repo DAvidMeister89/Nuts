@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 '''
 Nuts - Network Unit Testing System
 ===============
@@ -88,8 +87,7 @@ def connectivity(dest):
 
     os_family = __grains__['os_family']  # pylint: disable=undefined-variable
     if os_family in ['Debian', 'RedHat']:
-        result = __salt__['cmd.run']('ping -c 3 {}'.format(dest))  # pylint: disable=undefined-variable
-        text = bytes(result).decode(encoding='utf-8', errors='ignore')
+        text = __salt__['cmd.run']('ping -c 3 {}'.format(dest))  # pylint: disable=undefined-variable
         regex = '([0-9]*)% packet loss'
         r = re.compile(regex)
         m = r.search(text)
@@ -133,8 +131,7 @@ def traceroute(dest):
     resultList = []
     os_family = __grains__['os_family']  # pylint: disable=undefined-variable
     if os_family in ['Debian', 'RedHat']:
-        result = __salt__['cmd.run']('traceroute {}'.format(dest))  # pylint: disable=undefined-variable
-        text = bytes(result).decode(encoding='utf-8', errors='ignore')
+        text = __salt__['cmd.run']('traceroute {}'.format(dest))  # pylint: disable=undefined-variable
         regex = '[0-9]*  ([0-9\.]*) \('
         for m in re.finditer(regex, text):
             resultList.append(m.group(1))
@@ -249,8 +246,7 @@ def dhcpcheck(dest):
 
     os_family = __grains__['os_family']  # pylint: disable=undefined-variable
     if os_family in ['Debian', 'RedHat']:
-        result = __salt__['cmd.run']('dhcping -s {}'.format(dest))  # pylint: disable=undefined-variable
-        text = bytes(result).decode(encoding='utf-8', errors='ignore')
+        text = __salt__['cmd.run']('dhcping -s {}'.format(dest))  # pylint: disable=undefined-variable
         regex = '(Got answer)'
         return _returnSingle(bool(re.search(regex, text)))
 
@@ -282,8 +278,7 @@ def webresponse(dest, max_time=30):
     os_family = __grains__['os_family']  # pylint: disable=undefined-variable
     if os_family in ['Debian', 'RedHat']:
         cmd = 'curl -Is {0} --max-time {1} | head -n 1'.format(dest, max_time)
-        result = __salt__['cmd.run'](cmd)  # pylint: disable=undefined-variable
-        text = bytes(result).decode(encoding='utf-8', errors='ignore')
+        text = __salt__['cmd.run'](cmd)  # pylint: disable=undefined-variable
         regex = '([23][0-9]{2} [OK|Created|Accepted|No|Moved|Found|Temporary])'
         return _returnSingle(bool(re.search(regex, text)))
 
@@ -318,8 +313,7 @@ def portresponse(dest, port):
     result_list = []
     os_family = __grains__['os_family']  # pylint: disable=undefined-variable
     if os_family in ['Debian', 'RedHat']:
-        result = __salt__['cmd.run']('nmap -p {0} {1}'.format(port, dest))  # pylint: disable=undefined-variable
-        text = bytes(result).decode(encoding='utf-8', errors='ignore')
+        text = __salt__['cmd.run']('nmap -p {0} {1}'.format(port, dest))  # pylint: disable=undefined-variable
         pattern = '([0-9]*\/[a-z]*)[\s]*(open)'
         regex = re.compile(pattern, re.IGNORECASE)
         for m in regex.finditer(text):
