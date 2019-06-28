@@ -127,17 +127,15 @@ def traceroute(dest):
     :return:
     '''
 
-    json_data = {}
     resultList = []
     os_family = __grains__['os_family']  # pylint: disable=undefined-variable
     if os_family in ['Debian', 'RedHat']:
         text = __salt__['cmd.run']('traceroute {}'.format(dest))  # pylint: disable=undefined-variable
+        # todo: this regex expression fails to parse hops with names
         regex = '[0-9]*  ([0-9\.]*) \('
         for m in re.finditer(regex, text):
             resultList.append(m.group(1))
-        json_data['result'] = resultList
-        json_data['resulttype'] = 'multiple'
-        return json.dumps(json_data)
+        return _returnMultiple(resultList)
     elif os_family == 'proxy':
         result = __salt__['net.traceroute'](dest)  # pylint: disable=undefined-variable
         if result['result']:
